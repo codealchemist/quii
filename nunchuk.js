@@ -4,7 +4,7 @@ const charm = require('charm')()
 charm.pipe(process.stdout)
 
 class Nunchuk {
-  constructor ({joystick=true, buttons=true, accelerometer=false, freq=100}={}) {
+  constructor ({joystick=true, buttons=true, accelerometer=true, freq=100}={}) {
     this.onChangeCallback = null
     this.state = { // This is our source of truth.
       x: 0, // x-axis [-1, 0, 1]
@@ -109,7 +109,7 @@ class Nunchuk {
   }
 
   getDirection (axis, value) {
-    if (!axis || !value) return 0
+    if (!axis || !value || axis === 'z') return 0
 
     const center = this.scale[axis].center
     const threshold = 100
@@ -183,6 +183,8 @@ class Nunchuk {
     const button = this.getButtonName(target)
     const value = target[event.axis]
     const {isUp, isDown} = target
+
+    if (process.env.X) if (axis !== 'x') return
 
     console.log(`
       JOYSTICK EVENT:

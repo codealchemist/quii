@@ -70,20 +70,20 @@ boards.on('ready', () => {
       }
 
       if (state.x === 1) {
-        log('WALK FORWARD')
+        log('TURN FORWARD')
         bot.turn()
         return
       }
 
       if (state.x === -1) {
-        log('WALK BACKWARDS')
+        log('TURN BACKWARDS')
         bot.turn('left')
         return
       }
 
       if (state.y === 1) {
         log('WALK RIGHT')
-        bot.walk('rev')
+        bot.walk()
         return
       }
 
