@@ -1,0 +1,33 @@
+{
+  "name": "quadpod",
+  "version": "1.0.0",
+  "description": "Four legged robot control.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/codealchemist/quadpod.git"
+  },
+  "keywords": [
+    "quadpod",
+    "robot",
+    "node"
+  ],
+  "author": "Alberto Miranda",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/codealchemist/quadpod/issues"
+  },
+  "homepage": "https://github.com/codealchemist/quadpod#readme",
+  "dependencies": {
+    "charm": "^1.0.2",
+    "clear": "0.0.1",
+    "cli-cursor": "^2.1.0",
+    "johnny-five": "^0.11.6",
+    "object-hash": "^1.1.8",
+    "printii": "^1.0.0"
+  }
+}
