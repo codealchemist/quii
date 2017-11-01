@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index"
+    "start": "node src/index"
   },
   "repository": {
     "type": "git",
@@ -26,7 +26,10 @@
     "charm": "^1.0.2",
     "clear": "0.0.1",
     "cli-cursor": "^2.1.0",
+    "dualshock": "^2.2.2",
+    "etherport": "^0.2.0",
     "johnny-five": "^0.11.6",
+    "keypress": "^0.2.1",
     "object-hash": "^1.1.8",
     "printii": "^1.0.0"
   }

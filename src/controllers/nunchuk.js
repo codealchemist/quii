@@ -3,7 +3,7 @@ const charm = require('charm')()
 
 charm.pipe(process.stdout)
 
-class Nunchuk {
+class NunchukController {
   constructor ({joystick=true, buttons=true, accelerometer=true, freq=100}={}) {
     this.onChangeCallback = null
     this.state = { // This is our source of truth.
@@ -31,12 +31,25 @@ class Nunchuk {
         center: 512
       }
     }
-    
+    this.events = {
+      forward: () => {},
+      backwards: () => {},
+      left: () => {},
+      right: () => {},
+      sleep: () => {},
+      stop: () => {},
+      attack: () => {}
+    }
+    this.botState = {
+      stand: false,
+      sleep: false
+    }
     this.joystick = joystick
     this.buttons = buttons
     this.accelerometer = accelerometer
     this.freq = freq
     this.debug = !!process.env.DEBUG || false
+    this.init()
   }
 
   init (five, board) {
@@ -65,8 +78,7 @@ class Nunchuk {
       if (!this.isStateChange(this.lastState)) return
 
       this.state = this.lastState
-      if (typeof this.onChangeCallback !== 'function') return
-      this.onChangeCallback(this.state)
+      this.onChange(this.state)
     }, this.freq)
   }
 
@@ -198,10 +210,69 @@ class Nunchuk {
     `)
   }
 
-  onChange (callback) {
-    this.onChangeCallback = callback
+  onChange (state) {
+    if (state.a) {
+      if (this.botState.stand) {
+        this.log('BYE!')
+        this.events.sleep()
+        this.botState.stand = false
+      } else {
+        this.log('TATAKAU!')
+        this.events.fight()
+        this.botState.stand = true
+      }
+      return
+    }
+
+    if (state.b) {
+      this.log('STOP')
+      this.events.stop()
+      return
+    }
+
+    if (state.x === 0 && state.y === 0) {
+      this.log('QUIET')
+      this.events.stop()
+      return
+    }
+
+    if (state.x === 1) {
+      this.log('TURN FORWARD')
+      this.events.forward()
+      return
+    }
+
+    if (state.x === -1) {
+      this.log('TURN BACKWARDS')
+      this.events.backwards()
+      return
+    }
+
+    if (state.y === 1) {
+      this.log('WALK RIGHT')
+      this.events.right()
+      return
+    }
+
+    if (state.y === -1) {
+      this.log('WALK LEFT')
+      this.events.left()
+      return
+    }
+  }
+
+  on (event, callback) {
+    if (!event) return
+    if (typeof callback !== 'function') return
+
+    this.events[event] = callback
+    return this
+  }
+
+  log () {
+    if (!this.debug) return
+    console.log('[ Nunchuck Controller ]-->', ...arguments)
   }
 }
 
-const nunchuk = new Nunchuk()
-module.exports = nunchuk
+module.exports = NunchukController

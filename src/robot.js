@@ -1,5 +1,9 @@
 const temporal = require('temporal')
 
+function getServo (config) {
+  return Object.assign(config, { address: 0x40, controller: 'PCA9685'})
+}
+
 function init (five, board) {
   const quad = {
     status: 'sleep'
@@ -23,24 +27,24 @@ function init (five, board) {
   }
 
   // Front Right Leg
-  quad.r1c = new five.Servo({ pin: 11, offset: 0, board })
-  quad.r1f = new five.Servo({ pin: 10, invert: true, board })
+  quad.r1c = new five.Servo(getServo({ pin: 0, offset: 0, board }))
+  quad.r1f = new five.Servo(getServo({ pin: 1, invert: true, board }))
   quad.r1 = new five.Servos([quad.r1c, quad.r1f])
 
   // Front Left Leg
-  quad.l1c = new five.Servo({ pin: 7, offset: -7, invert: true, board })
-  quad.l1f = new five.Servo({ pin: 6, board })
+  quad.l1c = new five.Servo(getServo({ pin: 2, offset: -7, invert: true, board }))
+  quad.l1f = new five.Servo(getServo({ pin: 3, board }))
   quad.l1 = new five.Servos([quad.l1c, quad.l1f])
 
   // Rear Right Leg
-  quad.r2c = new five.Servo({ pin: 13, offset: -18, invert: true, board })
-  quad.r2f = new five.Servo({ pin: 12, invert: true, board })
+  quad.r2c = new five.Servo(getServo({ pin: 4, offset: -18, invert: true, board }))
+  quad.r2f = new five.Servo(getServo({ pin: 5, invert: true, board }))
   quad.r2 = new five.Servos([quad.r2c, quad.r2f])
 
 
   //Rear Left Leg
-  quad.l2c = new five.Servo({ pin: 9, offset: -5, board })
-  quad.l2f = new five.Servo({ pin: 8, board })
+  quad.l2c = new five.Servo(getServo({ pin: 6, offset: -5, board }))
+  quad.l2f = new five.Servo(getServo({ pin: 7, board }))
   quad.l2 = new five.Servos([quad.l2c, quad.l2f])
 
   quad.coxa = new five.Servos([quad.r1c, quad.l1c, quad.r2c, quad.l2c])
