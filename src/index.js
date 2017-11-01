@@ -28,6 +28,11 @@ function log(message) {
     message = JSON.stringify(message)
   }
 
+  if (process.env.DEBUG) {
+    console.log(message)
+    return
+  }
+
   charm
     .position(0, 16)
     .move(0, 1)
