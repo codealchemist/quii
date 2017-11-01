@@ -15,6 +15,7 @@ charm.pipe(process.stdout)
 // Set controller.
 // Can be any of: keyboard, nunchuk, sixaxis.
 const controllerName = process.env.CTRL || 'keyboard'
+log('CONTROLLER:', controllerName)
 const controller = controllers.get(controllerName)
 
 // Set boards.
