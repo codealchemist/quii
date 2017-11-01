@@ -7,15 +7,17 @@ const charm = require('charm')()
 const robot = require('./robot')
 const controllers = require('./controllers')
 
+const debug = process.env.DEBUG
+
 clear()
 printii()
 cliCursor.hide()
-charm.pipe(process.stdout)
+if (!debug) charm.pipe(process.stdout)
 
 // Set controller.
 // Can be any of: keyboard, nunchuk, sixaxis.
 const controllerName = process.env.CTRL || 'keyboard'
-log('CONTROLLER:', controllerName)
+log(`CTRL: ${controllerName}`)
 const controller = controllers.get(controllerName)
 
 // Set boards.
@@ -28,7 +30,7 @@ function log(message) {
     message = JSON.stringify(message)
   }
 
-  if (process.env.DEBUG) {
+  if (debug) {
     console.log(message)
     return
   }
