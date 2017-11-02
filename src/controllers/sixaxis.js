@@ -22,7 +22,7 @@ class SixaxisController {
   }
 
   searchDevice () {
-    console.log('Searching devices...')
+    this.log('Searching devices...')
     this.onDevicesFound((devices) => {
       this.setEvents(devices)
     })
@@ -54,7 +54,7 @@ class SixaxisController {
       return
     }
 
-    console.log('DEVICES:', devices)
+    this.log('DEVICES:', devices)
     callback(devices)
   }
 
