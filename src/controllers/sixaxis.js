@@ -12,7 +12,7 @@ class SixaxisController {
       attack: () => {}
     }
 
-    this.debug = !!process.env.DEBUG || false
+    this.debug = !!process.env.DEBUG
     this.waitMs = 5000
     this.state = {
       stand: false,
@@ -113,7 +113,7 @@ class SixaxisController {
 
   log () {
     if (!this.debug) return
-    console.log('[ Keyboard Controller ]-->', ...arguments)
+    console.log('[ Sixaxis Controller ]-->', ...arguments)
   }
 }
 
