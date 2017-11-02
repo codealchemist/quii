@@ -1,4 +1,4 @@
-const Sixaxis = require('./src/controllers/sixaxis')
+const Sixaxis = require('../src/controllers/sixaxis')
 
 const sixaxis = new Sixaxis()
 sixaxis
