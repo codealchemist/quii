@@ -34,9 +34,53 @@ class SixaxisController {
 
     gamepad.ondigital = (button, value) => {
       console.log(`BUTTON ${button} = ${value}`)
-      if (!value) return
+      if (!value) {
+        this.log('STOP')
+        this.events.stop()
+        return
+      }
 
+      if (button === 'up') {
+        this.log('WALK FORWARD')
+        this.events.forward()
+        return
+      }
 
+      if (button === 'down') {
+        this.log('WALK BACKWARDS')
+        this.events.backwards()
+        return
+      }
+
+      if (button === 'left') {
+        this.log('TURN LEFT')
+        this.events.left()
+        return
+      }
+
+      if (button === 'right') {
+        this.log('TURN RIGHT')
+        this.events.right()
+        return
+      }
+
+      if (button === 'cross') {
+        this.log('TATAKAU!')
+        this.events.attack()
+        return
+      }
+
+      if (button === 'square') {
+        this.log('STOP')
+        this.events.stop()
+        return
+      }
+
+      if (button === 'circle') {
+        this.log('BYE!')
+        this.events.sleep()
+        return
+      }
     }
 
     gamepad.onanalog = (axis, value) => {
@@ -56,51 +100,6 @@ class SixaxisController {
 
     this.log('DEVICES:', devices)
     callback(devices)
-  }
-
-  init () {
-      if (keyName === 'up') {
-        this.log('WALK FORWARD')
-        this.events.forward()
-        return
-      }
-
-      if (keyName === 'down') {
-        this.log('WALK BACKWARDS')
-        this.events.backwards()
-        return
-      }
-
-      if (keyName === 'left') {
-        this.log('TURN LEFT')
-        this.events.left()
-        return
-      }
-
-      if (keyName === 'right') {
-        this.log('TURN RIGHT')
-        this.events.right()
-        return
-      }
-
-      if (keyName === 'z') {
-        if (this.state.stand) {
-          this.log('BYE!')
-          this.events.sleep()
-          this.state.stand = false
-        } else {
-          this.log('TATAKAU!')
-          this.events.attack()
-          this.state.stand = true
-        }
-        return
-      }
-
-      if (keyName === 'x') {
-        this.log('STOP')
-        this.events.stop()
-        return
-      }
   }
 
   on (event, callback) {
